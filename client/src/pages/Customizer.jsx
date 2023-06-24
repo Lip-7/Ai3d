@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, m, motion } from "framer-motion";
 import { useSnapshot } from "valtio";
 import config from "../config/config";
 import state from "../store";
@@ -50,7 +50,16 @@ const Customizer = () => {
         
         try {
             //chiamata al backend
-            
+            setGeneratingImg(true);
+            const response = await fetch('localhost:8080/api/v1/dalle', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    prompt
+                })
+            })
         } catch (error) {
             alert(error)
         } finally {
